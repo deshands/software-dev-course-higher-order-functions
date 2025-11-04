@@ -44,6 +44,8 @@ Step-by-Step:
 3. Return the filtered result.
 */
 
+const availableItems = products.filter(p => p.inStock === true);
+console.log("Filtered products (in stock):", availableItems);
 
 /*
 🔹 Task 2: Transform Product Names
@@ -56,6 +58,8 @@ Step-by-Step:
 3. Store the result in a new variable.
 */
 
+const uppercasedNames = products.map(p => p.name.toUpperCase());
+console.log("Uppercased names:", uppercasedNames);
 
 /*
 🔹 Task 3: Generate Discounted Prices
@@ -71,6 +75,18 @@ Step-by-Step:
 4. Print the array of products to verify the new property and value have been added to each product object.
 */
 
+function applyDiscount(discountPercent) {
+  const factor = 1 - (discountPercent / 100);
+  return (product) => Number((product.price * factor).toFixed(2));
+}
+
+// Example: apply a 20% discount and attach salePrice to each product
+const addBlackFridayPrice = applyDiscount(20);
+products.forEach(p => {
+  p.salePrice = addBlackFridayPrice(p);
+});
+
+console.log("Products with salePrice (20% off):", products);
 
 /*
 🔹 Task 4: Calculate Total Inventory Value
@@ -83,6 +99,11 @@ Step-by-Step:
 3. Store the total in a new variable.
 */
 
+const totalValueInStock = products.reduce((sum, p) => {
+  return p.inStock ? sum + p.price : sum;
+}, 0);
+
+console.log("Total value of items currently in stock:", totalValueInStock);
 
 // ============================================
 // 🧪 Console Test Your Work
